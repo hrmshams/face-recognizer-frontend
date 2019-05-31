@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <div>
-      <logo />
+      <logo1 />
       <h1 class="title">
         firstnuxt
       </h1>
