@@ -40,7 +40,11 @@
                             ثبت نام
                             </div>
                         </v-btn>
-                        <v-btn @click="clear" color = "success" outline >ورود</v-btn>
+                        <v-btn @click="clear" color = "success" outline >
+                            <nuxt-link to="/login">
+                                ورود
+                            </nuxt-link>                        
+                        </v-btn>
                     </div>
                 </div>
             </form>

@@ -1,5 +1,5 @@
 <template>
-  <v-container>welcome to admin panel</v-container>
+  <v-container>learning AI</v-container>
 </template>
 
 <script>

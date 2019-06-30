@@ -32,7 +32,11 @@
                             ورود  
                             </div>
                         </v-btn>
-                        <v-btn @click="clear" color = "primary" outline >ثبت نام</v-btn>
+                        <v-btn @click="clear" color = "primary" outline >
+                            <nuxt-link to="/register">
+                                ثبت نام
+                            </nuxt-link>
+                        </v-btn>
                     </div>
                 </div>
             </form>

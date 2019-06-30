@@ -1,5 +1,5 @@
 <template>
-  <v-container>welcome to admin panel</v-container>
+  <v-container>crawl</v-container>
 </template>
 
 <script>
