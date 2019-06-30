@@ -1,9 +1,8 @@
 <template>
-  <div class = "grayBg">
-    <section class="container">
-      <nuxt/>
-    </section>
-  </div>
+  <section class="container">
+    <Toolbar :title="'iTunes Search'"/>
+    <nuxt/>
+  </section>
 </template>
 
 <script>

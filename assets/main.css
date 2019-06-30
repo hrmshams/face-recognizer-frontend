@@ -4,3 +4,34 @@
 .page-enter, .page-leave-to {
     opacity: 0;
 }
+
+.red {
+    background-color: red;
+}
+.gap {
+    height : 20px;
+}
+
+.centralize {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* background-color: aqua; */
+    align-items: center;
+}
+.grayBg {
+    background-color: #fafafa;
+    /* height: 100%; */
+    flex : 1;
+    flex-direction: column;
+    height: 100vh;
+}
+.form {
+    background-color: #fff;
+    border-radius: 3px;
+    /* box-shadow: black 5px; */
+    padding: 20px;
+    padding-bottom: 30px;
+    width: 75%;
+    box-shadow: 0px 2px 3px 1px #e6e6e6;
+}
