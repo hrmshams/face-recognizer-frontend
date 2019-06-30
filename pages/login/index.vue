@@ -12,7 +12,7 @@
                 required
                 @input="$v.email.$touch()"
                 @blur="$v.email.$touch()"
-                outline
+                
                 ></v-text-field>
                 
                 <v-text-field
@@ -22,17 +22,17 @@
                 required
                 @input="$v.password.$touch()"
                 @blur="$v.password.$touch()"
-                solo
+                
                 ></v-text-field>
                 
                 <div class = "centralize">
                     <div>
-                        <v-btn @click="submit" :color="colors.blue">
+                        <v-btn @click="submit" color = "success" depressed>
                             <div class="white-tint">
                             ورود  
                             </div>
                         </v-btn>
-                        <v-btn @click="clear" color = "success">ثبت نام</v-btn>
+                        <v-btn @click="clear" color = "primary" outline >ثبت نام</v-btn>
                     </div>
                 </div>
             </form>

@@ -1,7 +1,9 @@
 <template>
   <div class = "grayBg">
-    <section class="container">
+    <section >
+      <v-app>
       <nuxt/>
+      </v-app>
     </section>
   </div>
 </template>

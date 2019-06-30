@@ -7,4 +7,4 @@ import Vuelidate from 'vuelidate'
 Vue.use(Vuetify)
 
 Vue.use(Vuelidate)
-Vue.config.optionMergeStrategies.head = Vue.config.optionMergeStrategies.data
+// Vue.config.optionMergeStrategies.head = Vue.config.optionMergeStrategies.data

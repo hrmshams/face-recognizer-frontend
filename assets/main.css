@@ -21,18 +21,13 @@
     /* background-color: aqua; */
     align-items: center;
 }
-.grayBg {
-    background-color: #fafafa;
-    /* height: 100%; */
-    flex : 1;
-    flex-direction: column;
-    height: 100vh;
-}
 .form {
     background-color: #fff;
-    border-radius: 3px;
-    /* box-shadow: black 5px; */
+    border-radius: 5px;
     padding: 30px;
-    width: 75%;
-    box-shadow: 0px 2px 3px 1px #e6e6e6;
+    width: 60%;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #fafafa
+    /* box-shadow: 0px 2px 3px 1px #e6e6e6; */
 }

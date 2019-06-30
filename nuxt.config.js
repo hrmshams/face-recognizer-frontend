@@ -30,8 +30,8 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    '~/assets/app.styl',
     '~/assets/main.css',
-    '~/assets/app.styl'
   ],
 
   /*
@@ -39,13 +39,6 @@ module.exports = {
   */
   plugins: [
     '@plugins/vuetify.js'
-  ],
-
-  css: [
-    {
-        src: join(__dirname, 'assets/css/app.styl'),
-        lang: 'styl'
-    }
   ],
 
   /*
