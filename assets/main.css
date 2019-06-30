@@ -11,7 +11,9 @@
 .gap {
     height : 20px;
 }
-
+.white-tint {
+    color: white;
+}
 .centralize {
     display: flex;
     flex-direction: column;
@@ -30,8 +32,7 @@
     background-color: #fff;
     border-radius: 3px;
     /* box-shadow: black 5px; */
-    padding: 20px;
-    padding-bottom: 30px;
+    padding: 30px;
     width: 75%;
     box-shadow: 0px 2px 3px 1px #e6e6e6;
 }

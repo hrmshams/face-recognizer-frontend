@@ -16,7 +16,8 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' }
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' },
+      // { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css' }
     ]
   },
 
@@ -38,6 +39,13 @@ module.exports = {
   */
   plugins: [
     '@plugins/vuetify.js'
+  ],
+
+  css: [
+    {
+        src: join(__dirname, 'assets/css/app.styl'),
+        lang: 'styl'
+    }
   ],
 
   /*

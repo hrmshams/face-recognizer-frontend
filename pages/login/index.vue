@@ -3,6 +3,7 @@
         <div class = "form">
             <div class = "gap"></div>
             <div class = "centralize">برای ورود ایمیل و رمز عبور را وارد نمایید</div>
+            <div class = "gap"></div>
             <form>
                 <v-text-field
                 v-model="email"
@@ -11,6 +12,7 @@
                 required
                 @input="$v.email.$touch()"
                 @blur="$v.email.$touch()"
+                outline
                 ></v-text-field>
                 
                 <v-text-field
@@ -20,12 +22,17 @@
                 required
                 @input="$v.password.$touch()"
                 @blur="$v.password.$touch()"
+                solo
                 ></v-text-field>
                 
                 <div class = "centralize">
                     <div>
-                        <v-btn @click="submit">ورود</v-btn>
-                        <v-btn @click="clear">بازگشت</v-btn>
+                        <v-btn @click="submit" :color="colors.blue">
+                            <div class="white-tint">
+                            ورود  
+                            </div>
+                        </v-btn>
+                        <v-btn @click="clear" color = "success">ثبت نام</v-btn>
                     </div>
                 </div>
             </form>
@@ -33,8 +40,11 @@
     </v-container>
 </template>
 <script>
+
 import { validationMixin } from 'vuelidate'
 import { required, maxLength, email } from 'vuelidate/lib/validators'
+import Colors from './../../assets/colors'
+
 export default {
     mixins: [validationMixin],
     validations: {
@@ -45,7 +55,8 @@ export default {
     data(){
         return {
             email : '',
-            password : ''
+            password : '',
+            colors : Colors
         }
     },
 
@@ -56,6 +67,10 @@ export default {
         clear : function(){
 
         }
+    },
+
+    created(){
+        console.log(Colors)
     },
 
     computed : {
