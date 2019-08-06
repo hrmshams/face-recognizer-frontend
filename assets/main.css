@@ -10,6 +10,10 @@ a {
     color : inherit;
 }
 
+h1{
+    color: #463953;
+}
+
 .red {
     background-color: red;
 }
@@ -36,3 +40,34 @@ a {
     border-color: #fafafa;
     box-shadow: 0px 2px 3px 1px #e6e6e6;
 }
+.row-flex {
+    display: flex;
+    flex-direction: row;
+    min-height: 100px;
+}
+
+
+body {
+    background-color: #fafafa;
+}
+@font-face {
+    font-family: shabnam;
+    src: url("./fonts/Shabnam.ttf");
+}
+@font-face {
+    font-family: shabnam-bold;
+    src: url("./fonts/Shabnam-Bold.ttf");
+}
+@font-face {
+    font-family: shabnam-light;
+    src: url("./fonts/Shabnam-Light.ttf");
+}
+
+
+* {
+    font-family: shabnam;
+    direction: rtl;
+    text-align: right;
+
+}
+

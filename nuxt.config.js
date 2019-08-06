@@ -17,7 +17,13 @@ module.exports = {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' },
+      { rel: "stylesheet", type: "text/css", href: "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" }
       // { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css' }
+    ],
+    script:[
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' },
+      { src: 'https://code.jquery.com/jquery-3.3.1.slim.min.js' },
+      { src: 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' }
     ]
   },
 
@@ -30,7 +36,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '~/assets/app.styl',
+    // '~/assets/app.styl',
     '~/assets/main.css',
   ],
 
@@ -38,7 +44,8 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@plugins/vuetify.js'
+    // '@plugins/vuetify.js'
+    '~plugins/globals.js'
   ],
 
   /*

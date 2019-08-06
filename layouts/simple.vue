@@ -1,16 +1,16 @@
 <template>
-  <section class="container">
-    <Toolbar :title="'iTunes Search'"/>
-    <nuxt/>
-  </section>
+  <div class = "grayBg">
+    <section >
+      <v-app>
+      <nuxt/>
+      </v-app>
+    </section>
+  </div>
 </template>
 
 <script>
-import Toolbar from '~/components/Toolbar.vue'
-
 export default {
   components: {
-    Toolbar
   }
 }
 
