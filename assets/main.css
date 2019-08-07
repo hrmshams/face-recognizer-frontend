@@ -43,7 +43,6 @@ h1{
 .row-flex {
     display: flex;
     flex-direction: row;
-    min-height: 100px;
 }
 
 
@@ -68,6 +67,15 @@ body {
     font-family: shabnam;
     direction: rtl;
     text-align: right;
-
+    margin: 0;
+    padding: 0;
 }
 
+/* colors */
+.bg-violet {
+    background-color: #2F0477;
+}
+
+/* .no-padding-inline-start {
+    padding-inline-start: 0px !important;
+} */

@@ -1,75 +1,86 @@
 <template>
-  <nav>
-    <v-app>
+  <div>
+  <div class="container-fluid">
+    <div class="row">
+      <nav class="col-md-2 d-none d-md-block bg-warning text-dark sidebar">
+        <div class="sidebar-sticky">
+          <ul class="nav flex-column no-padding-inline-start">
 
-    <v-toolbar dark color="primary" >
-        <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
-        <v-toolbar-title class = "white-tint">پنل مدیریت</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat>خروج</v-btn>
-        </v-toolbar-items>
-    </v-toolbar>
-    
-    <nuxt/>
+            <div class="row-flex p-2">
+              <img src="~/assets/images/headerIcon.png" id="header-image" alt="faceMatcher">
+              <h5 class="px-2">فیس مچر</h5>
+            </div>
 
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="mini"
-      absolute
-      dark
-      temporary
-    >
-      <v-list class="pa-1">
-      </v-list>
+            <li class="nav-item">
+                <nuxt-link class="nav-link" to="/admin_panel">صفحه اصلی</nuxt-link>
+            </li>
+            <br>
+            <li class="nav-item">
+                <nuxt-link class="nav-link" to="/admin_panel/crawl">خزش اطلاعات</nuxt-link>
+            </li>
 
-      <v-list class="pt-0" dense>
-        <v-divider light></v-divider>
+            <li class="nav-item">
+                <nuxt-link class="nav-link" to="/admin_panel/learningAI">یادگیری</nuxt-link>
+            </li>
 
-        <v-list-tile
-          v-for="item in items"
-          :key="item.title"
-          @click="item.onPress"
-        >
-          <v-list-tile-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-tile-action>
+            <li class="nav-item">
+                <nuxt-link class="nav-link" to="/admin_panel/users">کاربران</nuxt-link>
+            </li>
+          </ul>
 
-          <v-list-tile-content>
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-    </v-app>
-  </nav>
+        </div>
+      </nav>
 
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-0">
+        <nav class="navbar navbar-light bg-white flex-md-nowrap p-0 shadow py-2">
+          <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">پنل ادمین</a>
+          <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+              <a class="nav-link" href="#">خروج از حساب</a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="p-4">
+          <v-app>
+          <nuxt/>
+          </v-app>
+
+        </div>
+
+      </main>
+
+    </div>
+  </div>
+
+</div>
 </template>
 
-
 <script>
-import consts from '~/static/consts.js'
-
 export default {
-    data () {
-      const items = consts.drawer.items
-      return {
-        drawer: null,
-        items: [
-          { title: items[0].title, icon: items[0].icon, onPress : ()=>{
-            this.$router.push('/admin_panel/crawl')
-          }},
-          { title: items[1].title, icon: items[1].icon, onPress : ()=>{
-            this.$router.push('/admin_panel/learningAI')
-          }},
-          { title: items[2].title, icon: items[2].icon, onPress : ()=>{
-            this.$router.push('/admin_panel/users')
-          }},
-        ],
-        mini: false,
-        right: null,
-        drawerIndexSelected : 0
-      }
+
+  methods : {
+    learningAIPressed : function(){
+      this.$router.push('/learningAI')
     }
+  }
+
 }
+
 </script>
+
+
+<style>
+.sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#header-image {
+  width : 30px;
+  height : 30px;
+}
+</style>

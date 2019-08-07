@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg navbar-light" id = "navbar_header">
         <div class = "container">
 
-            <img src="~/assets/images/headerIcon.png" id="header_image" alt="onlineZayeat">
+            <img src="~/assets/images/headerIcon.png" id="header_image" alt="faceMatcher">
             <a class="navbar-brand" href="/">
                 <div id = "title-container">
                     <p id="topperTitle">فیس مچر</p>
