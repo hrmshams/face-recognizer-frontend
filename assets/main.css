@@ -71,6 +71,11 @@ body {
     padding: 0;
 }
 
+p{
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+}
+
 /* colors */
 .bg-violet {
     background-color: #2F0477;

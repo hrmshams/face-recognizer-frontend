@@ -41,7 +41,7 @@
           </ul>
         </nav>
 
-        <div class="p-4">
+        <div class="container py-4">
           <v-app>
           <nuxt/>
           </v-app>
@@ -82,5 +82,9 @@ export default {
 #header-image {
   width : 30px;
   height : 30px;
+}
+.row {
+  display: flex;
+  flex-direction: row;
 }
 </style>
