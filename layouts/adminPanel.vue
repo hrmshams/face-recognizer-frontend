@@ -72,9 +72,9 @@ export default {
 
 <style>
 .sidebar-sticky {
-    position: relative;
+    position: sticky;
     top: 0;
-    height: calc(100vh - 48px);
+    height: calc(100vh);
     padding-top: .5rem;
     overflow-x: hidden;
     overflow-y: auto;
