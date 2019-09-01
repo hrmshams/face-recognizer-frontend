@@ -18,12 +18,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
+          <table-row
+            v-for="d in users"
+            v-bind:key = "d.index"
+            :index = "d.index"
+            :name = "d.name"
+            :access = "d.access"
+          ></table-row>
         </tbody>
       </table>
 
@@ -32,18 +33,20 @@
 </template>
 
 <script>
-import Tag from '~/components/Tag'
+import tableRow from '~/components/UsersTableRow'
 export default {
   layout : 'adminPanel',
 
   components : {
-    Tag
+    tableRow
   },
 
   data(){
     return{
-      unpreprocessedData : [
-        'حسن', 'ممد', 'ترامپ'
+      users : [
+        {index : 1, name : "hamid", access: "کاربر"},
+        {index : 2, name : "reza", access: "کاربر"},
+        {index : 3, name : "mamad", access: "کاربر"},
       ]
     }
   }
