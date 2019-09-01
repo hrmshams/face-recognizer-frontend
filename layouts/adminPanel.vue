@@ -20,6 +20,14 @@
             </li>
 
             <li class="nav-item">
+                <nuxt-link class="nav-link" to="/admin_panel/preProcess">پیش پردازش</nuxt-link>
+            </li>
+
+            <li class="nav-item">
+                <nuxt-link class="nav-link" to="/admin_panel/128measurement">تشکیل بردار ویژگی</nuxt-link>
+            </li>
+
+            <li class="nav-item">
                 <nuxt-link class="nav-link" to="/admin_panel/learningAI">یادگیری</nuxt-link>
             </li>
 
