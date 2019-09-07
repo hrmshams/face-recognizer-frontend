@@ -59,7 +59,8 @@ module.exports = {
   */
   build: {
     vendor : [
-      'vuetify'
+      'vuetify',
+      'vue-flash-message'
     ],
     /*
     ** You can extend webpack config here

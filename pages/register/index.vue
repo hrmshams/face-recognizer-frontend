@@ -24,15 +24,21 @@
 
             <gap height="30"></gap>
             <button class="btn btn-lg btn-primary btn-block" v-on:click.stop.prevent="submit">ثبت نام</button>
+            <gap height="20"></gap>
+            <flash-message 
+                transitionIn="animated swing"
+            ></flash-message>
         </form>
+
     </div>
 
 </template>
 <script>
 import {register} from './../../controller/index.js'
-
+import VueFlashMessage from 'vue-flash-message'
 export default {
     layout : 'defaultLayout',
+    
     data(){
         return {
             email : '',
@@ -69,8 +75,10 @@ export default {
         submit : function(){
             let result = this.validate()
 
-            if(!result)
+            if(!result){
+                this.flash('اطلاعات را کامل کنید', 'error')
                 return
+            }
 
             let password = this.password
             let email = this.email
@@ -80,14 +88,16 @@ export default {
                 let {res, msg} = response
 
                 if (res === 0){
-                    alert('user exists')
+                    this.flash('کاربر با این نام وجود دارد', 'error')
                     return
                 }
                 if (res === 1){
-                    alert('successfully user registered!')
+                    this.flash('کاربر با موفقیت ثبت نام شد', 'success')
+                    return
                 }
             }, err=>{
-                alert('internal error'+ err)
+                this.flash('خطای داخلی سرور بوجود آمد', 'error')
+                return
             })
         },
         clear : function(){
@@ -103,7 +113,8 @@ export default {
         },
         passwordErrors(){
         }
-    }
+    },
+    
 }
 </script>
 <style scoped>
