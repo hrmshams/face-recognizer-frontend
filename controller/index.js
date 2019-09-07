@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-let baseUrl = "localhost:8000/"
+axios.defaults.port = 8000;
+let baseUrl = "http://localhost:8000/"
 
 let endPoints = {
      login : baseUrl + "api/credential/login",
@@ -41,11 +42,13 @@ export function register(username, password, onSuccess, onFailure){
           method : 'POST',
           url : endPoints.register,
           // headers : headers,
+          crossDomain:true,
           data : data
           }).then(function(response){
                onSuccess(response.data)
 
           }).catch(function(error){
+               console.log(error)
                onFailure(error)
      })
 }

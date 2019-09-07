@@ -69,10 +69,8 @@ export default {
         submit : function(){
             let result = this.validate()
 
-            if(result)
-                alert('validated')
-            else
-                alert('not validated')
+            if(!result)
+                return
 
             let password = this.password
             let email = this.email
@@ -89,7 +87,7 @@ export default {
                     alert('successfully user registered!')
                 }
             }, err=>{
-                alert('internal error')
+                alert('internal error'+ err)
             })
         },
         clear : function(){
