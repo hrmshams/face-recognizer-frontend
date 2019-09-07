@@ -1,9 +1,7 @@
 <template>
     <div>
         <Header></Header>
-        <v-app>
         <nuxt/>
-        </v-app>
         <Footer></Footer>
     </div>
 </template>
