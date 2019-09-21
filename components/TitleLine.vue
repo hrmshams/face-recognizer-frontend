@@ -1,17 +1,17 @@
 <template>
-    <div id="main-container" v-if="ltr===false">
-        <div :style="{'color':color}">
+    <div id="main-container" v-if="fltr===false">
+        <div :style="{'color':fcolor}">
             <span>{{title}}</span>
         </div>
         <div id="line-container">
-            <div id="line" :style="{'background-color':color}"></div>
+            <div id="line" :style="{'background-color':fcolor}"></div>
         </div>
     </div>
     <div id="main-container" v-else>
         <div id="line-container">
-            <div id="line" :style="{'background-color':color}"></div>
+            <div id="line" :style="{'background-color':fcolor}"></div>
         </div>
-        <div :style="{'color':color}">
+        <div :style="{'color':fcolor}">
             <span>{{title}}</span>
         </div>
     </div>
@@ -24,13 +24,15 @@ export default {
         color : String,
         ltr : Boolean,
     },
+    data(){
+        return {
+            fcolor : "",
+            fltr : ""
+        }
+    },
     mounted(){
-        if (!this.$props.color){
-            this.$props.color = "#303030"
-        }
-        if (!this.$props.ltr){
-            this.$props.ltr = false
-        }
+        this.fcolor = this.$props.color ? this.$props.color : "#303030"
+        this.fltr = this.$props.ltr ? this.$props.ltr : false
 
     },
 }

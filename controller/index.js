@@ -7,7 +7,9 @@ let baseUrl = "http://localhost:8000/"
 let endPoints = {
      login : baseUrl + "api/credential/login",
      register : baseUrl + "api/register",
-     getUser : baseUrl + "api/credential/getUser"
+     getUser : baseUrl + "api/credential/getUser",
+     addPersonForCrawl : baseUrl + "api/credential/people/addPersonForCrowl",
+     crawlImages : baseUrl + "api/credential/people/crawlImages",
 }
 
 export function login(username, password, onSuccess, onFailure){
@@ -66,6 +68,50 @@ export function getUser(token, onSuccess, onFailure){
      axios({
           method : 'GET',
           url : endPoints.getUser,
+          headers : headers,
+          crossDomain:true,
+          }).then(function(response){
+               onSuccess(response.data)
+
+          }).catch(function(error){
+               console.log(error)
+               onFailure(error)
+     })
+}
+
+export function addPersonForCrawl(name, onSuccess, onFailure){
+     const headers = {
+          // 'Authorization': "Bearer " + token,
+          'Content-Type': 'application/x-www-form-urlencoded'
+     }
+     const data = {
+          name : name,
+     }
+
+     axios({
+          method : 'GET',
+          url : endPoints.addPersonForCrawl,
+          headers : headers,
+          data : data,
+          crossDomain:true,
+          }).then(function(response){
+               onSuccess(response.data)
+
+          }).catch(function(error){
+               console.log(error)
+               onFailure(error)
+     })
+}
+
+export function startCrawlingImages(onSuccess, onFailure){
+     const headers = {
+          // 'Authorization': "Bearer " + token,
+          'Content-Type': 'application/x-www-form-urlencoded'
+     }
+
+     axios({
+          method : 'GET',
+          url : endPoints.crawlImages,
           headers : headers,
           crossDomain:true,
           }).then(function(response){

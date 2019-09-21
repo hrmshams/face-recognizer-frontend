@@ -50,10 +50,7 @@
         </nav>
 
         <div class="container py-4">
-          <v-app>
           <nuxt/>
-          </v-app>
-
         </div>
 
       </main>
