@@ -14,7 +14,19 @@
 <script>
 export default {
     layout : 'defaultLayout',
-     
+    middleware : 'auth',
+
+    // asyncData ({app, store, redirect}) {
+
+    // const scope = app.$cookies.get('scope')
+    // if (scope){
+    //   if (!scope.includes('user')){
+    //     redirect('/login')
+    //   }
+    // }else {
+    //   redirect('/login')      
+    // }
+  
 }
 </script>
 

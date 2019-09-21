@@ -6,8 +6,9 @@
 export default {
   layout : 'adminPanel',
   middleware : 'auth',
-  asyncData ({store, redirect}) {
-    let {scope, token} = store.state
+  asyncData ({app, store, redirect}) {
+
+    const scope = app.$cookies.get('scope')
     if (scope){
       if (!scope.includes('admin')){
         redirect('/login')

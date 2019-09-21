@@ -14,13 +14,13 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        حساب من
+                            {{user}}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/login">ورود</a>
                         <a class="dropdown-item" href="/register">ثبت نام</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">خروج</a>
+                        <a class="dropdown-item" v-on:click="signout">خروج</a>
                         </div>
                     </li>
                 </ul>
@@ -32,15 +32,28 @@
 <script>
 export default {
     data : function(){
+        console.log(this.$store.state)
+
         return {
-            link : "~/assets/images/headerIcon.png"
+            link : "~/assets/images/headerIcon.png",
+            user : this.$store.state.user ? this.$store.state.user.username : "null"
         }
     },
     methods : {
         onNewAdPress : function(){
             this.$router.push('/adRegister')
+        },
+        signout : function(){
+            this.$cookies.remove('token')
+            this.$cookies.remove('scope')
+            this.$router.push('/')
         }
-    }
+    },
+    // watch: {
+    //     user: function(){
+    //         this.user = 
+    // }
+    // }
 }
 </script>
 

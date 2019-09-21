@@ -44,7 +44,7 @@
           <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">پنل ادمین</a>
           <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-              <a class="nav-link" href="#">خروج از حساب</a>
+              <a class="nav-link" v-on:click="signout">خروج از حساب</a>
             </li>
           </ul>
         </nav>
@@ -70,6 +70,11 @@ export default {
   methods : {
     learningAIPressed : function(){
       this.$router.push('/learningAI')
+    },
+    signout : function(){
+      this.$cookies.remove('token')
+      this.$cookies.remove('scope')
+      this.$router.push('/')
     }
   }
 

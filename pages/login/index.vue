@@ -71,9 +71,23 @@ export default {
 
             let password = this.password
             let email = this.email
-
+            let self = this
             login(email, password, (res)=>{
-                localStorage.setItem('token', res.accessToken)
+                this.$cookies.set('token', res.accessToken, {
+                    path: '/',
+                    maxAge: (24 * 60 * 60) - 100
+                })
+                this.$cookies.set('scope', res.scope, {
+                    path: '/',
+                    maxAge: (24 * 60 * 60) - 100
+                })
+
+                console.log(res)
+                if (res.scope.includes('admin')){
+                    this.$router.push('admin_panel')
+                }else{
+                    this.$router.push('upload')
+                }
             }, (err)=>{
                 console.log('error happened : ' + err)
                 this.flash('خطایی در شبکه یا سرور بوجود آمد', 'error')
@@ -96,7 +110,6 @@ export default {
     },
 
     mounted(){
-        console.log(localStorage)
     }
 }
 </script>
