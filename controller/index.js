@@ -1,5 +1,6 @@
 import axios from 'axios'
 const qs = require('querystring')
+import store from "./../store/index"
 
 axios.defaults.port = 8000;
 let baseUrl = "http://localhost:8000/"
@@ -10,6 +11,10 @@ let endPoints = {
      getUser : baseUrl + "api/credential/getUser",
      addPersonForCrawl : baseUrl + "api/credential/people/addPersonForCrowl",
      crawlImages : baseUrl + "api/credential/people/crawlImages",
+}
+
+function getToken(){
+     return store().getters.getToken
 }
 
 export function login(username, password, onSuccess, onFailure){
@@ -81,15 +86,14 @@ export function getUser(token, onSuccess, onFailure){
 
 export function addPersonForCrawl(name, onSuccess, onFailure){
      const headers = {
-          // 'Authorization': "Bearer " + token,
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Authorization': "Bearer " + getToken(),
      }
      const data = {
           name : name,
      }
 
      axios({
-          method : 'GET',
+          method : 'POST',
           url : endPoints.addPersonForCrawl,
           headers : headers,
           data : data,
@@ -104,13 +108,15 @@ export function addPersonForCrawl(name, onSuccess, onFailure){
 }
 
 export function startCrawlingImages(onSuccess, onFailure){
+     // store().dispatch('setUser')
+     // return
      const headers = {
           // 'Authorization': "Bearer " + token,
           'Content-Type': 'application/x-www-form-urlencoded'
      }
 
      axios({
-          method : 'GET',
+          method : 'POST',
           url : endPoints.crawlImages,
           headers : headers,
           crossDomain:true,

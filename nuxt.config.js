@@ -45,7 +45,7 @@ module.exports = {
   */
   plugins: [
     // '@plugins/vuetify.js'
-    '~plugins/globals.js'
+    '~plugins/globals.js',
   ],
 
   /*
