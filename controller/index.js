@@ -1,4 +1,5 @@
 import axios from 'axios'
+const qs = require('querystring')
 
 axios.defaults.port = 8000;
 let baseUrl = "http://localhost:8000/"
@@ -6,11 +7,13 @@ let baseUrl = "http://localhost:8000/"
 let endPoints = {
      login : baseUrl + "api/credential/login",
      register : baseUrl + "api/register",
+     getUser : baseUrl + "api/credential/getUser"
 }
 
 export function login(username, password, onSuccess, onFailure){
      const headers = {
-          'Authorization': "Basic " + "YXBwbGljYXRpb246c2VjcmV0"
+          'Authorization': "Basic " + "YXBwbGljYXRpb246c2VjcmV0",
+          'Content-Type': 'application/x-www-form-urlencoded'
      }
 
      const data = {
@@ -18,18 +21,19 @@ export function login(username, password, onSuccess, onFailure){
           username : username,
           password : password
      }
-
+     console.log(endPoints.login)
      axios({
           method : 'POST',
           url : endPoints.login,
           headers : headers,
-          data : data
+          data : qs.stringify(data)
+
           }).then(function(response){
                onSuccess(response.data)
 
           }).catch(function(error){
                onFailure(error)
-     })  
+     })
 }
 
 export function register(username, password, onSuccess, onFailure){
@@ -52,6 +56,27 @@ export function register(username, password, onSuccess, onFailure){
                onFailure(error)
      })
 }
+
+export function getUser(token, onSuccess, onFailure){
+     const headers = {
+          'Authorization': "Bearer " + token,
+          'Content-Type': 'application/x-www-form-urlencoded'
+     }
+
+     axios({
+          method : 'GET',
+          url : endPoints.getUser,
+          headers : headers,
+          crossDomain:true,
+          }).then(function(response){
+               onSuccess(response.data)
+
+          }).catch(function(error){
+               console.log(error)
+               onFailure(error)
+     })
+}
+
 
 // getToken( (token)=>{
 //      const headers = {

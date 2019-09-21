@@ -6,18 +6,32 @@
             <gap height="20"></gap>
 
             <label for="inputEmail" class="sr-only">ایمیل</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="ایمیل" required="" autofocus="">
+            <input type="email" id="inputEmail" class="form-control" 
+                placeholder="ایمیل" autofocus=""
+                v-model="email"
+                v-bind:class="{'middle-form-input' : true,'form-control':true, 'is-invalid' : !validateEmail(email)}"
+            >
 
             <label for="inputPassword" class="sr-only">رمز عبور</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="رمز عبور" required="">
+            <input type="password" id="inputPassword" 
+                class="form-control" placeholder="رمز عبور" 
+                v-model="password"
+                v-bind:class="{'middle-form-input' : true,'form-control':true, 'is-invalid' : !validatePassword(password)}"
+            >
 
             <gap height="20"></gap>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">ورود</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" v-on:click.stop.prevent="submit">ورود</button>
+            <gap height="20"></gap>
+            <flash-message 
+                transitionIn="animated swing"
+            ></flash-message>
+
         </form>
     </div>
 
 </template>
 <script>
+import {login} from './../../controller/index.js'
 export default {
     layout : 'defaultLayout',
     data(){
@@ -28,7 +42,42 @@ export default {
     },
 
     methods : {
+        validate : function(){
+            this.emailBlured = true;
+            if( this.validateEmail(this.email) && this.validatePassword(this.password) )
+                return true
+            
+            return false
+        },
+        validateEmail : function(email) {
+            var re = /(.+)@(.+){2,}\.(.+){2,}/;
+            return re.test(email.toLowerCase());
+        },
+        validatePassword : function(password) {
+            if ( password.length === 0)
+                return false
+
+            return true
+        },
         submit : function(){
+            localStorage.a = undefined
+            
+            let result = this.validate()
+
+            if(!result){
+                this.flash('اطلاعات را کامل کنید', 'warning')
+                return
+            }
+
+            let password = this.password
+            let email = this.email
+
+            login(email, password, (res)=>{
+                localStorage.setItem('token', res.accessToken)
+            }, (err)=>{
+                console.log('error happened : ' + err)
+                this.flash('خطایی در شبکه یا سرور بوجود آمد', 'error')
+            })
 
         },
         clear : function(){
@@ -44,6 +93,10 @@ export default {
         },
         passwordErrors(){
         }
+    },
+
+    mounted(){
+        console.log(localStorage)
     }
 }
 </script>

@@ -35,7 +35,6 @@
 </template>
 <script>
 import {register} from './../../controller/index.js'
-import VueFlashMessage from 'vue-flash-message'
 export default {
     layout : 'defaultLayout',
     
@@ -76,7 +75,7 @@ export default {
             let result = this.validate()
 
             if(!result){
-                this.flash('اطلاعات را کامل کنید', 'error')
+                this.flash('اطلاعات را کامل کنید', 'warning')
                 return
             }
 
@@ -96,7 +95,7 @@ export default {
                     return
                 }
             }, err=>{
-                this.flash('خطای داخلی سرور بوجود آمد', 'error')
+                this.flash('خطایی در شبکه یا سرور بوجود آمد', 'error')
                 return
             })
         },
