@@ -34,8 +34,13 @@
 
 <script>
 import tableRow from '~/components/UsersTableRow'
+import checkAdmin from './../checkAdmin'
+
 export default {
   layout : 'adminPanel',
+  asyncData (context) {
+    checkAdmin(context)
+  },
 
   components : {
     tableRow

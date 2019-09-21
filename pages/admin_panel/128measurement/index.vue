@@ -13,8 +13,12 @@
 
 <script>
 import Tag from '~/components/Tag'
+import checkAdmin from './../checkAdmin'
 export default {
   layout : 'adminPanel',
+  asyncData (context) {
+    checkAdmin(context)
+  },
 
   components : {
     Tag

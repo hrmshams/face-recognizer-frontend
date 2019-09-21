@@ -3,19 +3,13 @@
 </template>
 
 <script>
+import checkAdmin from './checkAdmin'
 export default {
   layout : 'adminPanel',
   middleware : 'auth',
-  asyncData ({app, store, redirect}) {
 
-    const scope = app.$cookies.get('scope')
-    if (scope){
-      if (!scope.includes('admin')){
-        redirect('/login')
-      }
-    }else {
-      redirect('/login')      
-    }
+  asyncData (context) {
+    checkAdmin(context)
   }
 }
 </script>
