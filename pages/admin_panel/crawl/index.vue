@@ -22,10 +22,15 @@
       <title-line title="افراد اضافه شده"></title-line>
       <label>تصاویر این افراد هنوز خزش نشده است!</label>
       <tag :data="uncrawledData"></tag>
+
       <button class="btn btn-outline-success btn-block my-2 " type="submit"
         v-on:click="crawlImagesOnPress"
       >شروع خزش تصاویر!
       </button>
+
+      <div class="progress" style="height: 35px; font-size: 15px;" v-if="isCrawling">
+        <div class="progress-bar progress-bar-striped progress-bar-animated active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">در حال خزش</div>
+      </div>
 
       <gap height="25"></gap>
 
@@ -53,7 +58,8 @@ export default {
     return{
       name : "",
       uncrawledData : [''],
-      crawledData : ['']
+      crawledData : [''],
+      isCrawling : 0
     }
   },
 
@@ -65,10 +71,17 @@ export default {
     addPersonForCrawlOnPress : function(){
       if (this.name.length > 0){
         addPersonForCrawl(this.name, (res)=>{
-          console.log(res)
           if (res.status === 0){
             this.flash('همچین اسمی وجود دارد', 'warning')
-          }else if(res.status === 1){
+          }else if(res.status === 1 || res.status === 2){
+            console.log(res)
+            if (res.uncrawledPeople){
+              let unP = []
+              for (let i=0; i<res.uncrawledPeople.length; i++){
+                unP.push(res.uncrawledPeople[i].name)
+              }
+              this.uncrawledData=unP
+            }
             this.flash('با موفقیت اضافه شد', 'success')
           }
         }, (err)=>{
@@ -79,19 +92,24 @@ export default {
         this.flash('اطلاعات را کامل کنید', 'warning')
       }
       this.name = ""
+
     },
     
     crawlImagesOnPress : function(){
       startCrawlingImages((res)=>{
+        this.isCrawling = 1
         console.log(res)
       }, (err)=>{
         console.log(err)
       })
+      this.refresh()
     },
 
     getPeopleProcedure : function(){
       getPeople(res=>{
-        let {status, not_crawled, crawled} = res
+        let {status, not_crawled, crawled, is_crawling} = res
+        console.log('ac')
+        this.isCrawling = is_crawling
 
         let newUncrawled = []
         let newCrawled = []
@@ -110,6 +128,14 @@ export default {
       }, err=>{
         console.log('error in getting people names => ' + err)
       })
+    },
+
+    refresh : function(){
+      console.log('access1')
+      this.getPeopleProcedure()
+      if (this.isCrawling === 1){
+        setTimeout(this.refresh, 500)
+      }
     }
 
   },
@@ -121,3 +147,7 @@ export default {
 
 }
 </script>
+
+<style scoped>
+</style>
+
