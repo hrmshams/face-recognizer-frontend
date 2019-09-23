@@ -81,6 +81,10 @@ export default {
                     path: '/',
                     maxAge: (24 * 60 * 60) - 100
                 })
+                this.$store.commit('setUser', {
+                    token : res.accessToken,
+                    scope : res.scope
+                })
 
                 console.log(res)
                 if (res.scope.includes('admin')){

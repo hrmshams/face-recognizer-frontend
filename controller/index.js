@@ -88,6 +88,7 @@ export function addPersonForCrawl(name, onSuccess, onFailure){
      const headers = {
           'Authorization': "Bearer " + getToken(),
      }
+     console.log(headers)
      const data = {
           name : name,
      }

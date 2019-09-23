@@ -43,7 +43,7 @@ const createStore = () => {
                },
                setUser ({commit, state}) {
                     commit('setUser', '123')
-               }
+               },
           },
           getters: {
                getWholeState : state => {
