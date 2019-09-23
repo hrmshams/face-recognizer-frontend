@@ -11,6 +11,7 @@ let endPoints = {
      getUser : baseUrl + "api/credential/getUser",
      addPersonForCrawl : baseUrl + "api/credential/people/addPersonForCrowl",
      crawlImages : baseUrl + "api/credential/people/crawlImages",
+     getPeople : baseUrl + 'api/credential/people/getPeople'
 }
 
 function getToken(){
@@ -109,16 +110,30 @@ export function addPersonForCrawl(name, onSuccess, onFailure){
 }
 
 export function startCrawlingImages(onSuccess, onFailure){
-     // store().dispatch('setUser')
-     // return
      const headers = {
-          // 'Authorization': "Bearer " + token,
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Authorization': "Bearer " + getToken(),
      }
-
      axios({
           method : 'POST',
           url : endPoints.crawlImages,
+          headers : headers,
+          crossDomain:true,
+          }).then(function(response){
+               onSuccess(response.data)
+
+          }).catch(function(error){
+               console.log(error)
+               onFailure(error)
+     })
+}
+
+export function getPeople(onSuccess, onFailure){
+     const headers = {
+          'Authorization': "Bearer " + getToken(),
+     }
+     axios({
+          method : 'GET',
+          url : endPoints.getPeople,
           headers : headers,
           crossDomain:true,
           }).then(function(response){

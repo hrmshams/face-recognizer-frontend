@@ -30,7 +30,7 @@
       <gap height="25"></gap>
 
       <title-line title="افراد خزش شده"></title-line>
-      <tag :data="uncrawledData"></tag>
+      <tag :data="crawledData"></tag>
 
   </div>
 </template>
@@ -38,7 +38,11 @@
 <script>
 import Tag from '~/components/Tag'
 import checkAdmin from './../checkAdmin'
-import {addPersonForCrawl, startCrawlingImages} from '~/controller/index'
+import {
+  addPersonForCrawl, 
+  startCrawlingImages,
+  getPeople
+} from '~/controller/index'
 
 export default {
   layout : 'adminPanel',
@@ -48,10 +52,13 @@ export default {
   data(){
     return{
       name : "",
-      uncrawledData : [
-        'حسن', 'ممد', 'ترامپ'
-      ]
+      uncrawledData : [''],
+      crawledData : ['']
     }
+  },
+
+  mounted(){
+    this.getPeopleProcedure()
   },
 
   methods : {
@@ -73,13 +80,38 @@ export default {
       }
       this.name = ""
     },
+    
     crawlImagesOnPress : function(){
       startCrawlingImages((res)=>{
         console.log(res)
       }, (err)=>{
         console.log(err)
       })
+    },
+
+    getPeopleProcedure : function(){
+      getPeople(res=>{
+        let {status, not_crawled, crawled} = res
+
+        let newUncrawled = []
+        let newCrawled = []
+
+        if (status === 1){
+          for (let i=0; i<not_crawled.length; i++){
+            newUncrawled.push(not_crawled[i].name)
+          }
+          for (let i=0; i<crawled.length ; i++){
+            newCrawled.push(crawled[i].name)
+          }
+
+          this.uncrawledData = newUncrawled
+          this.crawledData = newCrawled
+        }
+      }, err=>{
+        console.log('error in getting people names => ' + err)
+      })
     }
+
   },
 
   components : {
