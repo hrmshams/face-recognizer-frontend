@@ -14,7 +14,7 @@
       <div class="progress" style="height: 35px; font-size: 15px;" v-if="isPreprocessing">
         <div class="progress-bar progress-bar-striped progress-bar-animated active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">در حال خزش</div>
       </div>
-
+      <gap height="10"></gap>
       <flash-message 
           transitionIn="animated swing"
       ></flash-message>
@@ -51,11 +51,14 @@ export default {
 
   methods: {
     onPreprocessPress: function(){
-      // this.unpreprocessedData = []
+      if (this.unpreprocessedData.length===0){
+        this.flash('داده ای جهت پیش پردازش وجود ندارد', 'warning')
+        return        
+      }
       startPreprocess(res=>{
         this.isPreprocessing = 1
         this.flash('فرایند پیش پردازش آغاز شد', 'success')
-        this.refresh()
+        setTimeout(this.refresh, 2000)
       }, err=>{
         console.log(err)
         this.flash('مشکلی در آغاز فرایند پیش آمد', 'error')
