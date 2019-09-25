@@ -11,7 +11,9 @@ let endPoints = {
      getUser : baseUrl + "api/credential/getUser",
      addPersonForCrawl : baseUrl + "api/credential/people/addPersonForCrowl",
      crawlImages : baseUrl + "api/credential/people/crawlImages",
-     getPeople : baseUrl + 'api/credential/people/getPeople'
+     getPeople : baseUrl + 'api/credential/people/getPeople',
+     unpreprocessedPeopleGet : baseUrl + 'api/credential/preprocess/getPeoplePreprocess',
+     startPreprocess : baseUrl + 'api/credential/preprocess/start'
 }
 
 function getToken(){
@@ -145,6 +147,42 @@ export function getPeople(onSuccess, onFailure){
      })
 }
 
+
+export function getUnpreprocessedPeople(onSuccess, onFailure){
+  const headers = {
+       'Authorization': "Bearer " + getToken(),
+  }
+  axios({
+       method : 'GET',
+       url : endPoints.unpreprocessedPeopleGet,
+       headers : headers,
+       crossDomain:true,
+       }).then(function(response){
+            onSuccess(response.data)
+
+       }).catch(function(error){
+            console.log(error)
+            onFailure(error)
+  })
+}
+
+export function startPreprocess(onSuccess, onFailure){
+  const headers = {
+       'Authorization': "Bearer " + getToken(),
+  }
+  axios({
+       method : 'POST',
+       url : endPoints.startPreprocess,
+       headers : headers,
+       crossDomain:true,
+       }).then(function(response){
+            onSuccess(response.data)
+
+       }).catch(function(error){
+            console.log(error)
+            onFailure(error)
+  })
+}
 
 // getToken( (token)=>{
 //      const headers = {
