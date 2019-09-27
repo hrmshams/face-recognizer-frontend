@@ -13,7 +13,10 @@ let endPoints = {
      crawlImages : baseUrl + "api/credential/people/crawlImages",
      getPeople : baseUrl + 'api/credential/people/getPeople',
      unpreprocessedPeopleGet : baseUrl + 'api/credential/preprocess/getPeoplePreprocess',
-     startPreprocess : baseUrl + 'api/credential/preprocess/start'
+     startPreprocess : baseUrl + 'api/credential/preprocess/start',
+     getAllUsers : baseUrl + 'api/credential/user/getAll',
+     deleteUser : baseUrl + 'api/credential/user/deleteUser',
+     promoteDemoteUser : baseUrl + 'api/credential/user/promoteDemote',
 }
 
 function getToken(){
@@ -184,18 +187,65 @@ export function startPreprocess(onSuccess, onFailure){
   })
 }
 
-// getToken( (token)=>{
-//      const headers = {
-//          'Authorization': "Bearer " + token
-//      }
+export function getAllUsers(onSuccess, onFailure){
+     const headers = {
+          'Authorization': "Bearer " + getToken(),
+     }
+     axios({
+          method : 'GET',
+          url : endPoints.getAllUsers,
+          headers : headers,
+          crossDomain:true,
+          }).then(function(response){
+               onSuccess(response.data)
+   
+          }).catch(function(error){
+               console.log(error)
+               onFailure(error)
+     })
+}
 
-//      axios({
-//          method : 'GET',
-//          url : endPoints.getWallet,
-//          headers : headers
-//        }).then(function(response){
-//            onSuccess(response.data)
-//        }).catch(function(error){
-//            onFailure(error)
-//      })  
-// })
+export function deleteUser(user_id, onSuccess, onFailure){
+     const headers = {
+          'Authorization': "Bearer " + getToken(),
+     }
+     const data = {
+          id : user_id
+     }
+     axios({
+          method : 'POST',
+          url : endPoints.deleteUser,
+          headers : headers,
+          data : data,
+          crossDomain:true,
+          }).then(function(response){
+               onSuccess(response.data)
+
+          }).catch(function(error){
+               console.log(error)
+               onFailure(error)
+     })
+}
+
+export function promoteDemoteUser(user_id, isPromote, onSuccess, onFailure){
+     const headers = {
+          'Authorization': "Bearer " + getToken(),
+     }
+     const data = {
+          id : user_id,
+          isPromote : isPromote
+     }
+     axios({
+          method : 'POST',
+          url : endPoints.promoteDemoteUser,
+          headers : headers,
+          data : data,
+          crossDomain:true,
+          }).then(function(response){
+               onSuccess(response.data)
+   
+          }).catch(function(error){
+               console.log(error)
+               onFailure(error)
+     })
+}
