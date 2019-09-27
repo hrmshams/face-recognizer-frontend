@@ -17,6 +17,10 @@ let endPoints = {
      getAllUsers : baseUrl + 'api/credential/user/getAll',
      deleteUser : baseUrl + 'api/credential/user/deleteUser',
      promoteDemoteUser : baseUrl + 'api/credential/user/promoteDemote',
+
+     getReadyPeople : baseUrl + 'api/credential/featurevector/getReadyPeople',
+     getInfo : baseUrl + 'api/credential/featurevector/getInfo',
+     startCreatingVector : baseUrl + 'api/credential/featurevector/create'
 }
 
 function getToken(){
@@ -240,6 +244,60 @@ export function promoteDemoteUser(user_id, isPromote, onSuccess, onFailure){
           url : endPoints.promoteDemoteUser,
           headers : headers,
           data : data,
+          crossDomain:true,
+          }).then(function(response){
+               onSuccess(response.data)
+   
+          }).catch(function(error){
+               console.log(error)
+               onFailure(error)
+     })
+}
+
+export function getReadyPeople(onSuccess, onFailure){
+     const headers = {
+          'Authorization': "Bearer " + getToken(),
+     }
+     axios({
+          method : 'GET',
+          url : endPoints.getReadyPeople,
+          headers : headers,
+          crossDomain:true,
+          }).then(function(response){
+               onSuccess(response.data)
+   
+          }).catch(function(error){
+               console.log(error)
+               onFailure(error)
+     })
+}
+
+export function getVectorCreatingInfo(onSuccess, onFailure){
+     const headers = {
+          'Authorization': "Bearer " + getToken(),
+     }
+     axios({
+          method : 'GET',
+          url : endPoints.getInfo,
+          headers : headers,
+          crossDomain:true,
+          }).then(function(response){
+               onSuccess(response.data)
+   
+          }).catch(function(error){
+               console.log(error)
+               onFailure(error)
+     })
+}
+
+export function startCreatingVector(onSuccess, onFailure){
+     const headers = {
+          'Authorization': "Bearer " + getToken(),
+     }
+     axios({
+          method : 'POST',
+          url : endPoints.startCreatingVector,
+          headers : headers,
           crossDomain:true,
           }).then(function(response){
                onSuccess(response.data)
