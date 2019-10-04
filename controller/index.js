@@ -30,7 +30,9 @@ let endPoints = {
   upload: baseUrl + "api/credential/facedetect/upload",
   startComparingProcess: baseUrl + "api/credential/facedetect/start",
   getComparingProcessInfo:
-    baseUrl + "api/credential/facedetect/getComparingProcessInfo"
+    baseUrl + "api/credential/facedetect/getComparingProcessInfo",
+
+  getImage: baseUrl + "api/credential/facedetect/getImage"
 }
 
 function getToken() {
@@ -426,6 +428,29 @@ export function getComparingProcessInfo(onSuccess, onFailure) {
     url: endPoints.getComparingProcessInfo,
     headers: headers,
     crossDomain: true
+  })
+    .then(function(response) {
+      onSuccess(response.data)
+    })
+    .catch(function(error) {
+      console.log(error)
+      onFailure(error)
+    })
+}
+
+export function getImage(name, onSuccess, onFailure) {
+  const headers = {
+    Authorization: "Bearer " + getToken()
+  }
+  let data = {
+    name: name
+  }
+  axios({
+    method: "POST",
+    url: endPoints.getImage,
+    headers: headers,
+    crossDomain: true,
+    data: data
   })
     .then(function(response) {
       onSuccess(response.data)

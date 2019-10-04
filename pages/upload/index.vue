@@ -1,9 +1,9 @@
 <template>
   <div class="container centralize horizontal">
     <div class="right-panel panel">
-      <lable class="mt-3 centralize">
+      <label class="mt-3 centralize">
         عکس مورد نظر خود را دراینجا آپلود کرده و منتظر نتایج بمانید
-      </lable>
+      </label>
 
       <gap height="30"></gap>
       <form class="vertical">
@@ -22,7 +22,9 @@
           value="شروع فرایند"
           class="btn btn-primary"
           v-on:click.stop.prevent="onSubmit"
-          :disabled="isUploading || isProcessing"
+          :disabled="
+            this.state === 'isUploading' || this.state === 'isProcessing'
+          "
         />
         <gap height="15"></gap>
         <flash-message transitionIn="animated swing"></flash-message>
@@ -34,7 +36,7 @@
           </div>
           <div>{{ result_text() }}</div>
         </div>
-        <div class="result-container horizontal" v-show="done">
+        <div class="result-container horizontal" v-show="this.state === 'done'">
           <label>عملیات با موفقیت تمام شد</label>
           <label
             >فرد پیش بینی شده {{ this.result.person }} با میزان اطمینان
@@ -44,8 +46,23 @@
       </form>
     </div>
 
-    <div class="left-panel panel centralize">
-      <img v-if="url" :src="url" />
+    <div class="left-panel panel centralize horizontal">
+      <img
+        v-if="this.state === 'done' && this.predictedImage"
+        :src="predictedImage"
+        class="person-image"
+      />
+      <div v-else-if="this.state === 'done'">
+        <span class="text-warning"> در حال بارگذاری تصویر </span>
+
+        <div class="spinner-grow text-warning" role="status"></div>
+      </div>
+      <img
+        src="~/assets/images/right-arrow.png"
+        v-if="this.state === 'done'"
+        class="arrow-image"
+      />
+      <img v-if="url" :src="url" class="person-image" />
     </div>
   </div>
 </template>
@@ -54,18 +71,18 @@
 import {
   upload,
   startComparingProcess,
-  getComparingProcessInfo
+  getComparingProcessInfo,
+  getImage
 } from "~/controller/index"
 export default {
   layout: "defaultLayout",
   middleware: "auth",
   data() {
     return {
+      predictedImage: null,
       image: null,
       url: null,
-      isUploading: false,
-      isProcessing: false,
-      done: false,
+      state: "",
       result_texts: ["درحال آپلود عکس", "درحال پردازش", "تمام شد!"],
       result: {
         person: "",
@@ -75,19 +92,20 @@ export default {
   },
   methods: {
     setImage() {
+      this.predictedImage = null
+      this.state = ""
       this.image = this.$refs.imageRef.files[0]
       this.url = URL.createObjectURL(this.image)
     },
     onSubmit() {
       if (this.image) {
-        this.isUploading = true
+        this.state = "isUploading"
         setTimeout(() => {
           upload(
             this.image,
             res => {
               console.log(res)
-              this.isUploading = false
-              this.isProcessing = true
+              this.state = "isProcessing"
 
               startComparingProcess(
                 res => {
@@ -109,30 +127,41 @@ export default {
       }
     },
     result_text() {
-      if (this.isUploading) return this.result_texts[0]
-      if (this.isProcessing) return this.result_texts[1]
+      if (this.state === "isUploading") return this.result_texts[0]
+      if (this.state === "isProcessing") return this.result_texts[1]
       return ""
     },
     isShowingResult() {
-      return this.isUploading || this.isProcessing
+      return this.state === "isUploading" || this.state === "isProcessing"
     },
     refresh() {
-      console.log("accsss")
+      let self = this
       getComparingProcessInfo(
         res => {
           console.log(res)
           if (res.status === "processing") {
             setTimeout(this.refresh, 1000)
           } else if (res.status === "done") {
-            this.isProcessing = false
-            this.done = true
+            this.state = "done"
             this.result = {
               person: res.p_person,
               confidence: res.confidence
             }
+            this.getPredectedImageProcedure(res.p_person)
           }
         },
         err => {}
+      )
+    },
+    getPredectedImageProcedure(name) {
+      getImage(
+        name,
+        res => {
+          this.predictedImage = res.base64
+        },
+        err => {
+          console.log("error in getting image : " + err)
+        }
       )
     }
   }
@@ -180,5 +209,11 @@ export default {
   /* justify-content: center; */
   align-items: center;
   color: #666666;
+}
+.person-image {
+  width: 35%;
+}
+.arrow-image {
+  width: 100px;
 }
 </style>
