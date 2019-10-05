@@ -58,27 +58,43 @@
         class="btn-group btn-group-toggle toggle-container"
         data-toggle="buttons"
       >
-        <label class="btn btn-info active">
+        <label
+          class="btn btn-info"
+          :class="isMyModel === false ? 'active' : ''"
+          @click="onModelRadioBtnPress(0)"
+        >
           <input
             type="radio"
             name="options"
             id="option1"
             autocomplete="off"
-            checked
+            :checked="isMyModel === false"
           />
           مدل کوچک از ۶۰۰۰ فرد معروف
         </label>
-        <label class="btn btn-info">
-          <input type="radio" name="options" id="option2" autocomplete="off" />
+        <label
+          class="btn btn-info"
+          :class="isMyModel === true ? 'active' : ''"
+          @click="onModelRadioBtnPress(1)"
+        >
+          <input
+            type="radio"
+            name="options"
+            id="option2"
+            autocomplete="off"
+            :checked="isMyModel === true"
+          />
           مدل ساخته شده
         </label>
       </div>
     </div>
+    <flash-message transitionIn="animated swing"></flash-message>
   </div>
 </template>
 
 <script>
 import checkAdmin from "./checkAdmin"
+import { setModel, getWholeStatus } from "~/controller/index"
 export default {
   layout: "adminPanel",
   middleware: "auth",
@@ -87,8 +103,12 @@ export default {
       isCrawling: false,
       isPreprocessing: false,
       isCreatingVectors: false,
-      isTraining: false
+      isTraining: false,
+      isMyModel: true
     }
+  },
+  mounted() {
+    this.refresh()
   },
   methods: {
     crawlCardData(isText) {
@@ -129,6 +149,44 @@ export default {
         if (this.isTraining) return "text-white bg-success"
         else return "bg-light"
       }
+    },
+
+    refresh() {
+      getWholeStatus(
+        res => {
+          if (res.status == 1) {
+            const { data } = res
+            this.isMyModel = data.is_my_model === 1
+            this.isCrawling = data.is_crawling === 1
+            this.isPreprocessing = data.is_preprocessing === 1
+            this.isCreatingVectors = data.is_creating_vectors === 1
+            this.isTraining = data.is_training === 1
+          }
+        },
+        err => {
+          console.log("error in getting status data")
+        }
+      )
+      setTimeout(this.refresh, 4000)
+    },
+
+    onModelRadioBtnPress(is_my_model) {
+      console.log("access1111")
+      setModel(
+        is_my_model,
+        res => {
+          if (res.status == 1) {
+            this.flash("با موفقیت تغییر داده شد", "success")
+            this.isMyModel = res.is_my_model === 1
+          } else if (res.status == 0) {
+            this.flash("فایل مدل خواسته شده وجود ندارد!", "warning")
+            this.isMyModel = res.is_my_model === 1
+          }
+        },
+        err => {
+          this.flash("اروری در سرور ایجاد شد", "error")
+        }
+      )
     }
   },
   asyncData(context) {

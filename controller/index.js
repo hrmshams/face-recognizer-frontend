@@ -32,7 +32,10 @@ let endPoints = {
   getComparingProcessInfo:
     baseUrl + "api/credential/facedetect/getComparingProcessInfo",
 
-  getImage: baseUrl + "api/credential/facedetect/getImage"
+  getImage: baseUrl + "api/credential/facedetect/getImage",
+
+  getWholeStatus: baseUrl + "api/credential/train/getWholeStatus",
+  setModel: baseUrl + "api/credential/train/setModel"
 }
 
 function getToken() {
@@ -451,6 +454,48 @@ export function getImage(name, onSuccess, onFailure) {
     headers: headers,
     crossDomain: true,
     data: data
+  })
+    .then(function(response) {
+      onSuccess(response.data)
+    })
+    .catch(function(error) {
+      console.log(error)
+      onFailure(error)
+    })
+}
+
+export function getWholeStatus(onSuccess, onFailure) {
+  const headers = {
+    Authorization: "Bearer " + getToken()
+  }
+  axios({
+    method: "GET",
+    url: endPoints.getWholeStatus,
+    headers: headers,
+    crossDomain: true
+  })
+    .then(function(response) {
+      onSuccess(response.data)
+    })
+    .catch(function(error) {
+      console.log(error)
+      onFailure(error)
+    })
+}
+
+export function setModel(is_my_model, onSuccess, onFailure) {
+  const headers = {
+    Authorization: "Bearer " + getToken()
+  }
+  const data = {
+    is_my_model
+  }
+  axios({
+    method: "POST",
+    url: endPoints.setModel,
+    headers: headers,
+    crossDomain: true,
+    data
   })
     .then(function(response) {
       onSuccess(response.data)
